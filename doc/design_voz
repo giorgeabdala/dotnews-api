@@ -1,0 +1,8 @@
+1 - Iniciar Dot News
+	1.1 - Olá, Seja em vindo ao DotNews. O que você gostaria de saber? notícias semanais, anuncios do discord ou cotação ? (slot requerido)
+	
+		notícias semanais - speak_out do polkadot digest.
+		anuncios do discord - speak_out do discord.
+		cotação - fala as cotações de Polkadot e Kusama e bitcoin.
+		
+	1.1 - Eu tenho as notícias semanais e os anúncios do discord. O que você está precisando?
