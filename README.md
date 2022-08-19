@@ -17,6 +17,12 @@
 API for consuming Alexa Skill DotNews. 
 
 
+
+## Installation
+### Requirements
+```bash
+$npm run install
+
 ## Running the app
 
 ```bash
@@ -30,6 +36,7 @@ $ npm run start:dev
 $ npm run start:prod
 
 #docker-compose mode
+$docker build -t dotnews-api .
 $ docker-compose up
 ```
 
