@@ -1,9 +1,7 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <a href="http://dotnews.com/" target="blank"><img src="https://www.google.com/imgres?imgurl=https%3A%2F%2Fbitnoticias.com.br%2Fwp-content%2Fuploads%2F2021%2F10%2Fshutterstock_1849145665-1000x500-1.jpg&imgrefurl=https%3A%2F%2Fbitnoticias.com.br%2Fcomo-funcionam-a-queima-de-tokens-e-o-tesouro-do-protocolo-polkadot%2F&tbnid=QaHVyX4vJ-DMpM&vet=12ahUKEwjJy_TNqNH5AhUIupUCHSvIAiIQMygDegUIARDEAQ..i&docid=7cjk1jTjzoXyeM&w=1000&h=500&q=polkadot&ved=2ahUKEwjJy_TNqNH5AhUIupUCHSvIAiIQMygDegUIARDEAQ" width="200" alt="DotNews Logo" /></a>
 </p>
 
-[circleci-image]: https://www.google.com/imgres?imgurl=https%3A%2F%2Fbitnoticias.com.br%2Fwp-content%2Fuploads%2F2021%2F10%2Fshutterstock_1849145665-1000x500-1.jpg&imgrefurl=https%3A%2F%2Fbitnoticias.com.br%2Fcomo-funcionam-a-queima-de-tokens-e-o-tesouro-do-protocolo-polkadot%2F&tbnid=QaHVyX4vJ-DMpM&vet=12ahUKEwjJy_TNqNH5AhUIupUCHSvIAiIQMygDegUIARDEAQ..i&docid=7cjk1jTjzoXyeM&w=1000&h=500&q=polkadot&ved=2ahUKEwjJy_TNqNH5AhUIupUCHSvIAiIQMygDegUIARDEAQ
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
   <p align="center">API for Alexa Skill DotNews.</p>
     <p align="center">

@@ -9,19 +9,39 @@ const offchainUrl = process.env.OFF_CHAIN__URL ||  "https://staging.subsocial.ne
 const ipfsNodeUrl = process.env.IPFS_NODE_URL || "https://app.subsocial.network/ipfs";
 
 
+const ERROR_CONNECTION_FAILED = "Connection in Substrate/Subsocial failed";
+const ERROR_NO_FETCH = "Unable to fetch posts on subsocial";
+
+const MSG_CONNECTION_SUBSTRATE= "Connecting to Substrate/Subsocial...";
+const MSG_CONNECTION_SUCCESS = "Connected to Substrate/Subsocial";
+const MSG_SEARCHING_POSTS = "Searching posts on Substrate/Subsocial...";
 
 export class SubService {
     private flatApi: Promise<FlatSubsocialApi>;
 
      constructor() {
-        this.flatApi =  newFlatSubsocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
+        try {
+            console.log(MSG_CONNECTION_SUBSTRATE);
+            this.flatApi =  newFlatSubsocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
+            console.log(MSG_CONNECTION_SUCCESS);
+
+        }
+        catch (error) {
+            console.log(`${ERROR_CONNECTION_FAILED} Erro: ${error}`);
+        }
+
     }
 
     //traz todos os posts do subsocial da spaceId
-    private fetchPosts = async (spaceId) => {
-        const postIds =  await (await this.flatApi).subsocial.substrate.postIdsBySpaceId(spaceId)
+    private async fetchPosts (spaceId) {
+        try {
+            console.log(MSG_SEARCHING_POSTS);
+            const postIds = await (await this.flatApi).subsocial.substrate.postIdsBySpaceId(spaceId);
+            return (await this.flatApi).subsocial.findPosts({ids: postIds});
 
-        return  (await this.flatApi).subsocial.findPosts({ids: postIds})
+        } catch (error) {
+            console.log(`${ERROR_NO_FETCH} Erro: ${error}`);
+        }
     }
 
     //trata o texto para retirar markdown, links, tags e outros
@@ -64,15 +84,10 @@ export class SubService {
 
     }
 
-//retorna uma lista de Feeds a partir de um id de espaco
-    private fetchFeeds = async (spaceId) => {
-        const posts = await this.fetchPosts(spaceId);
-          return this.processPosts(posts)
-    }
-
 
      async getAllFeeds(spaceId ): Promise<Feed[]> {
-             return this.fetchFeeds(spaceId);
+         const posts = await this.fetchPosts(spaceId);
+         return this.processPosts(posts)
      }
 
      async lastFeed(spaceId): Promise<Feed> {
