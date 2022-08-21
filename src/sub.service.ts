@@ -61,24 +61,21 @@ export class SubService {
         return title;
     }
 
-//transforma os posts em uma lista de Feeds
+//transforma os posts do subsocial em uma lista de Feeds(objetos interpretados pela alexa)
      private processPosts =  (posts: PostData[]) => {
 
 
         let feeds: Feed[];
         feeds = [];
         for (const post of posts) {
-            const text = SubService.transformText(post.content.body);
-            const title = SubService.transformTitle(post.content.title);
-
             const feed: Feed = {
                 uid: post.struct.id.toString(),
                 updateDate: new Date(Date.now()),
-                titleText: title,
-                mainText: text,
+                titleText: SubService.transformTitle(post.content.title),
+                mainText: SubService.transformText(post.content.body),
                 redirectUrl: post.content.link,
             }
-            feeds.push(feed)
+            feeds.push(feed);
         }
         return feeds
 
@@ -90,7 +87,7 @@ export class SubService {
          return this.processPosts(posts)
      }
 
-     async lastFeed(spaceId): Promise<Feed> {
+     async getLastFeed(spaceId): Promise<Feed> {
          const allFeeds = await this.getAllFeeds(spaceId);
         return allFeeds[allFeeds.length - 1];
 

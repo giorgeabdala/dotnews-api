@@ -2,6 +2,8 @@ import {Feed} from "./feed.model";
 import {SubService} from "./sub.service";
 import {Controller, Get} from "@nestjs/common";
 
+const MSG_SEARCHING_LAST_POST = "Searching last post...";
+
 @Controller("polkadotdigest")
 export class PolkadotDigestController {
     private subService: SubService;
@@ -24,15 +26,13 @@ export class PolkadotDigestController {
 
     @Get("last")
     async ultimo(): Promise<Feed> {
-        return  this.subService.lastFeed(this.spaceIdDigest);
+        console.log(MSG_SEARCHING_LAST_POST);
+        return this.subService.getLastFeed(this.spaceIdDigest);
     }
 
     @Get("teste")
     teste(): string {
         return "buhu";
     }
-
-
-
 
 }
