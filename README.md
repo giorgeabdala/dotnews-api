@@ -32,9 +32,12 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 
-#docker-compose mode
+##docker-compose mode - development
+$ docker-compose up -V --build
+
+#docker-compose mode - production
 $docker build -t dotnews-api .
-$ docker run -p80:3000 dotnews-api
+$ docker run -p3000:3000 dotnews-api
 ```
 
 ## Test

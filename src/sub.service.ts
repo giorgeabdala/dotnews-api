@@ -22,6 +22,7 @@ export class SubService {
      constructor() {
         try {
             console.log(MSG_CONNECTION_SUBSTRATE);
+            console.log(ipfsNodeUrl);
             this.flatApi =  newFlatSubsocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
             console.log(MSG_CONNECTION_SUCCESS);
 
