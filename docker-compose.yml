@@ -1,5 +1,6 @@
 services:
-  api:
+  dev:
+    container_name: nestjs_api_dev
     build:
       dockerfile: Dockerfile
       context: .
@@ -8,9 +9,23 @@ services:
     volumes:
       - .:/usr/src/app
     env_file:
-    - .env
+      - .env
     # Run a command against the development stage of the image
     command: npm run docker:dev
     ports:
       - 3000:3000
 
+
+  prod:
+        container_name: nestjs_api_prod
+        build:
+            context: .
+            target: production
+            dockerfile: Dockerfile
+        ports:
+            - 3000:3000
+        volumes:
+            - .:/usr/src/app
+        env_file:
+          - .env
+        restart: unless-stopped
