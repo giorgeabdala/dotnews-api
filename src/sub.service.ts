@@ -5,8 +5,8 @@ import {FlatSubsocialApi} from "@subsocial/api/flat-subsocial";
 import removeMarkdown from "markdown-to-text";
 
 const substrateNodeUrl = process.env.SUBSTRATE_NODE_URL || "wss://rpc.subsocial.network/";
-const offchainUrl = process.env.OFF_CHAIN__URL ||  "https://app.subsocial.network/offchain/";
-const ipfsNodeUrl = process.env.IPFS_NODE_URL || "https://app.subsocial.network/ipfs/";
+const offchainUrl = process.env.OFF_CHAIN__URL ||  "https://app.subsocial.network/offchain";
+const ipfsNodeUrl = process.env.IPFS_NODE_URL || "https://app.subsocial.network/ipfs";
 
 
 const ERROR_CONNECTION_FAILED = "Connection in Substrate/Subsocial failed";
