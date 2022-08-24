@@ -3,27 +3,32 @@
 import { newFlatSubsocialApi } from '@subsocial/api'
 import {Feed} from "./feed.model";
 import {PostData} from "@subsocial/types/dto/sub";
+import config from './config/Config';
 
 /*
   Store the URLs of the Substrate and IPFS nodes
   Note: You can either run local substrateNode or use our testnet.
 */
 
-const substrateNodeUrl = "wss://rpc.subsocial.network"
-const offchainUrl = "https://app.subsocial.network/offchain"
-const ipfsNodeUrl = "https://app.subsocial.network/ipfs"
-const spaceId = "7199"
+const substrateNodeUrl = config.substrateNodeUrlRco;
+const offchainUrl = config.offchainUrl;
+const ipfsNodeUrl = config.ipfsNodeUrl;
+const spaceId = config.spaceIdDigestBr;
 
 
-
-
-console.log("testando subsocial api");
+console.log("testando subsocial api teste");
 
 export const fetchPosts = async () => {
-    const flatApi = await newFlatSubsocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
-    const postIds = await flatApi.subsocial.substrate.postIdsBySpaceId(spaceId as any)
+    try {
+        const flatApi = await newFlatSubsocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
+        const postIds = await flatApi.subsocial.substrate.postIdsBySpaceId(spaceId as any)
 
-    return  flatApi.subsocial.findPosts({ids: postIds})
+        return  flatApi.subsocial.findPosts({ids: postIds})
+
+    }catch (error) {
+        console.log(`Erro ao  conectar na api do subsocial: ${error}`);
+    }
+
 }
 
 
@@ -46,9 +51,15 @@ export const processPosts =  (posts: PostData[]) => {
 
 
 async function main() {
-    const posts = await fetchPosts();
-    const feeds = processPosts(posts);
-    console.log(feeds);
+    try {
+        const posts = await fetchPosts();
+        const feeds = processPosts(posts);
+        console.log(feeds);
+
+    } catch (error) {
+        console.log(`Erro ao  fazer o fetch: ${error}`);
+    }
+
 }
 
 

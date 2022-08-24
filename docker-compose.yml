@@ -8,8 +8,6 @@ services:
       target: development
     volumes:
       - .:/usr/src/app
-    env_file:
-      - .env
     # Run a command against the development stage of the image
     command: npm run docker:dev
     ports:
@@ -26,6 +24,4 @@ services:
             - 3000:3000
         volumes:
             - .:/usr/src/app
-        env_file:
-          - .env
         restart: unless-stopped

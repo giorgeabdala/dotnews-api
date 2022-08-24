@@ -40,7 +40,6 @@ $docker build -t dotnews-api .
 $ docker run -p3000:3000 dotnews-api
 
 #dockerfile mode - build production
-#note: this mode does not load the .env file
 $docker build -t dotnews-api .
 $ docker run -p3000:3000 dotnews-api
 
