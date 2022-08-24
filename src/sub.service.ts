@@ -17,28 +17,37 @@ const MSG_CONNECTION_SUCCESS = "Connected to Substrate/Subsocial";
 const MSG_SEARCHING_POSTS = "Searching posts on Substrate/Subsocial...";
 
 export class SubService {
-    private flatApi: Promise<FlatSubsocialApi>;
+    private flatApi: FlatSubsocialApi;
 
-     constructor() {
-        try {
-            console.log(MSG_CONNECTION_SUBSTRATE);
-            console.log(ipfsNodeUrl);
-            this.flatApi =  newFlatSubsocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
-            console.log(MSG_CONNECTION_SUCCESS);
+     private constructor(flatApi: FlatSubsocialApi) {
+         this.flatApi = flatApi;
+     }
+
+
+    public static async createSubService(): Promise<SubService> {
+         let flatApi: FlatSubsocialApi;
+         try{
+             console.log(MSG_CONNECTION_SUBSTRATE);
+             flatApi = await newFlatSubsocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
+
+         }
+         catch (e) {
+             throw new Error(`${ERROR_CONNECTION_FAILED} Erro: ${e}`);
 
         }
-        catch (error) {
-            console.log(`${ERROR_CONNECTION_FAILED} Erro: ${error}`);
-        }
-
+        console.log(MSG_CONNECTION_SUCCESS);
+        return new SubService(flatApi);
     }
+
+
+
 
     //traz todos os posts do subsocial da spaceId
     private async fetchPosts (spaceId) {
         try {
             console.log(MSG_SEARCHING_POSTS);
-            const postIds = await (await this.flatApi).subsocial.substrate.postIdsBySpaceId(spaceId);
-            return (await this.flatApi).subsocial.findPosts({ids: postIds});
+            const postIds = await this.flatApi.subsocial.substrate.postIdsBySpaceId(spaceId);
+            return this.flatApi.subsocial.findPosts({ids: postIds});
 
         } catch (error) {
             console.log(`${ERROR_NO_FETCH} Erro: ${error}`);
@@ -47,18 +56,22 @@ export class SubService {
 
     //trata o texto para retirar markdown, links, tags e outros
     private static transformText(text) {
+         console.log(`text puro: ${text}`);
         const regex = /\[([^\]]*)\]\((https?:\/\/[^$#\s].[^\s]*)\)/gm;
         text = text.replace(regex, ' ');
         text = removeMarkdown(text);
         const regexN = /\n/gms;
         text = text.replace(regexN, '.');
+        console.log(`text tratado: ${text}`);
         return text;
 
     }
 
     private static transformTitle(title) {
+         console.log(`title puro: ${title}`);
         const regex = /Polkadot digest/gmsi;
        title = (title ? title.replace(regex, '') : `Polkadot  ${new Date().toLocaleDateString()}`);
+       console.log(`title tratado: ${title}`);
         return title;
     }
 

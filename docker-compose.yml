@@ -1,6 +1,6 @@
 services:
   dev:
-    container_name: nestjs_api_dev
+    container_name: dotnews_api_dev
     build:
       dockerfile: Dockerfile
       context: .
@@ -17,7 +17,7 @@ services:
 
 
   prod:
-        container_name: nestjs_api_prod
+        container_name: dotnews_api_prod
         build:
             context: .
             target: production
