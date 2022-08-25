@@ -1,19 +1,12 @@
-import {newFlatSubsocialApi} from "@subsocial/api";
+
 import {PostData} from "@subsocial/types/dto/sub";
 import {Feed} from "./feed.model";
 import {FlatSubsocialApi} from "@subsocial/api/flat-subsocial";
 import removeMarkdown from "markdown-to-text";
-
-const substrateNodeUrl = process.env.SUBSTRATE_NODE_URL || "wss://rpc.subsocial.network/";
-const offchainUrl = process.env.OFF_CHAIN__URL ||  "https://app.subsocial.network/offchain";
-const ipfsNodeUrl = process.env.IPFS_NODE_URL || "https://app.subsocial.network/ipfs";
+import {Subsocial} from "./connections/subsocial";
 
 
-const ERROR_CONNECTION_FAILED = "Connection in Substrate/Subsocial failed";
 const ERROR_NO_FETCH = "Unable to fetch posts on subsocial";
-
-const MSG_CONNECTION_SUBSTRATE= "Connecting to Substrate/Subsocial...";
-const MSG_CONNECTION_SUCCESS = "Connected to Substrate/Subsocial";
 const MSG_SEARCHING_POSTS = "Searching posts on Substrate/Subsocial...";
 
 export class SubService {
@@ -24,22 +17,11 @@ export class SubService {
      }
 
 
-    public static async createSubService(): Promise<SubService> {
-         let flatApi: FlatSubsocialApi;
-         try{
-             console.log(MSG_CONNECTION_SUBSTRATE);
-             flatApi = await newFlatSubsocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
+    public static async getInstanceSubService(): Promise<SubService> {
+        const flatApi = Subsocial.getInstanceSubSocialApi();
+        return new SubService(await flatApi);
 
-         }
-         catch (e) {
-             throw new Error(`${ERROR_CONNECTION_FAILED} Erro: ${e}`);
-
-        }
-        console.log(MSG_CONNECTION_SUCCESS);
-        return new SubService(flatApi);
     }
-
-
 
 
     //traz todos os posts do subsocial da spaceId

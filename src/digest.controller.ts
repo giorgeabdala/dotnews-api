@@ -11,7 +11,7 @@ export class PolkadotDigestController {
     private spaceIdDigest = process.env.SPACE_ID_DIGEST_BRASIL || 7199;
 
     constructor() {
-         SubService.createSubService().then(sub => {
+         SubService.getInstanceSubService().then(sub => {
             this.subService = sub;
             }).catch(err => {
                 console.log(err);
