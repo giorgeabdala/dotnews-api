@@ -37,29 +37,24 @@ export class SubService {
     }
 
     //trata o texto para retirar markdown, links, tags e outros
-    private static transformText(text) {
-         console.log(`text puro: ${text}`);
+     static transformText(text) {
         const regex = /\[([^\]]*)\]\((https?:\/\/[^$#\s].[^\s]*)\)/gm;
         text = text.replace(regex, ' ');
         text = removeMarkdown(text);
         const regexN = /\n/gms;
         text = text.replace(regexN, '.');
-        console.log(`text tratado: ${text}`);
         return text;
 
     }
 
-    private static transformTitle(title) {
-         console.log(`title puro: ${title}`);
+     static transformTitle(title) {
         const regex = /Polkadot digest/gmsi;
-       title = (title ? title.replace(regex, '') : `Polkadot  ${new Date().toLocaleDateString()}`);
-       console.log(`title tratado: ${title}`);
+       title = (title ? title.replace(regex, "Polkadot") : `Polkadot  ${new Date().toLocaleDateString()}`);
         return title;
     }
 
 //transforma os posts do subsocial em uma lista de Feeds(objetos interpretados pela alexa)
      private processPosts =  (posts: PostData[]) => {
-
 
         let feeds: Feed[];
         feeds = [];
@@ -68,6 +63,7 @@ export class SubService {
                 uid: post.struct.id.toString(),
                 updateDate: new Date(Date.now()),
                 titleText: SubService.transformTitle(post.content.title),
+                //mainText: post.content.body,
                 mainText: SubService.transformText(post.content.body),
                 redirectUrl: post.content.link,
             }
@@ -78,7 +74,7 @@ export class SubService {
     }
 
 
-     async getAllFeeds(spaceId ): Promise<Feed[]> {
+     async getAllFeeds(spaceId): Promise<Feed[]> {
          const posts = await this.fetchPosts(spaceId);
          return this.processPosts(posts)
      }

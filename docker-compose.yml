@@ -1,6 +1,6 @@
 services:
   dev:
-    container_name: dotnews_api_dev
+    container_name: dotnews_api_feature
     build:
       dockerfile: Dockerfile
       context: .

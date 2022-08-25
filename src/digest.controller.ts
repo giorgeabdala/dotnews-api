@@ -23,10 +23,7 @@ export class PolkadotDigestController {
     @Get()
      async obterTodos(): Promise<Feed[]> {
         console.log("obterTodos");
-        const feeds = await this.subService.getAllFeeds(this.spaceIdDigest);
-        console.log(feeds);
-
-        return feeds;
+        return this.subService.getAllFeeds(this.spaceIdDigest);
 
      }
 

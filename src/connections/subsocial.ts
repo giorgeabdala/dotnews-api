@@ -11,7 +11,7 @@ const MSG_CONNECTION_SUBSTRATE= "Connecting to Substrate/Subsocial...";
 const MSG_CONNECTION_SUCCESS = "Connected to Substrate/Subsocial";
 const ERROR_CONNECTION_FAILED = "Connection in Substrate/Subsocial failed";
 
-let subsocial: FlatSubsocialApi;
+ let subsocial: FlatSubsocialApi;
 
 export class Subsocial {
 
@@ -24,6 +24,7 @@ export class Subsocial {
         if (!subsocial) {
             try {
                 console.log(MSG_CONNECTION_SUBSTRATE);
+                subsocial = await newSocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
                 subsocial = await newFlatSubsocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
 
             } catch (e) {
