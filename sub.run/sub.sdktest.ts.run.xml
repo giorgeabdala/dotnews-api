@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="sub.sdktest.ts" type="NodeJSConfigurationType" path-to-node="$USER_HOME$/.nvm/versions/node/v18.7.0/bin/node" path-to-js-file="sub.sdktest.js" working-dir="$PROJECT_DIR$/dist/">
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
