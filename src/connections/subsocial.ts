@@ -24,7 +24,6 @@ export class Subsocial {
         if (!subsocial) {
             try {
                 console.log(MSG_CONNECTION_SUBSTRATE);
-                subsocial = await newSocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
                 subsocial = await newFlatSubsocialApi({substrateNodeUrl, offchainUrl, ipfsNodeUrl});
 
             } catch (e) {
