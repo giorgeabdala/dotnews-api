@@ -1,4 +1,4 @@
-import removeMarkdown from "markdown-to-text";
+import removeMarkdown from 'markdown-to-text';
 
 
 export class WordProcessor{
@@ -23,14 +23,14 @@ export class WordProcessor{
 
     public spelling(text) {
         const regex = /de [Pp]olkadot/gm;
-        text = text.replace(regex, "da Polkadot");
+        text = text.replace(regex, 'da Polkadot');
         return text;
    }
 
 
     public  transformTitle(title) {
         const regex = /Polkadot digest/gmsi;
-        title = (title ? title.replace(regex, "Polkadot") : `Polkadot  ${new Date().toLocaleDateString()}`);
+        title = (title ? title.replace(regex, 'Polkadot') : `Polkadot  ${new Date().toLocaleDateString()}`);
         return title;
     }
 

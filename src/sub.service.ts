@@ -6,8 +6,8 @@ import {Subsocial} from "./connections/subsocial";
 import {WordProcessor} from "./wordProcessor";
 
 
-const ERROR_NO_FETCH = "Unable to fetch posts on subsocial";
-const MSG_SEARCHING_POSTS = "Searching posts on Substrate/Subsocial...";
+const ERROR_NO_FETCH = 'Unable to fetch posts on subsocial';
+const MSG_SEARCHING_POSTS = 'Searching posts on Substrate/Subsocial...';
 
 export class SubService {
     private flatApi: FlatSubsocialApi;
