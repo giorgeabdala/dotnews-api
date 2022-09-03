@@ -1,6 +1,6 @@
 
 import {PostData} from "@subsocial/types/dto/sub";
-import {Feed} from "./feed.model";
+import {Feed} from "./feedModel";
 import {FlatSubsocialApi} from "@subsocial/api/flat-subsocial";
 import {Subsocial} from "./connections/subsocial";
 import {WordProcessor} from "./wordProcessor";

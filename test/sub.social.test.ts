@@ -1,4 +1,4 @@
-import {SubService} from "../src/sub.service";
+import {SubService} from "../src/subService";
 import config from "../src/config/Config";
 import {WordProcessor} from "../src/wordProcessor";
 
