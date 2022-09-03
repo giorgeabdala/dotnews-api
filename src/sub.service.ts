@@ -2,8 +2,8 @@
 import {PostData} from "@subsocial/types/dto/sub";
 import {Feed} from "./feed.model";
 import {FlatSubsocialApi} from "@subsocial/api/flat-subsocial";
-import removeMarkdown from "markdown-to-text";
 import {Subsocial} from "./connections/subsocial";
+import {WordProcessor} from "./wordProcessor";
 
 
 const ERROR_NO_FETCH = "Unable to fetch posts on subsocial";
@@ -11,9 +11,11 @@ const MSG_SEARCHING_POSTS = "Searching posts on Substrate/Subsocial...";
 
 export class SubService {
     private flatApi: FlatSubsocialApi;
+    private wordProcessor: WordProcessor;
 
      private constructor(flatApi: FlatSubsocialApi) {
          this.flatApi = flatApi;
+         this.wordProcessor = new WordProcessor();
      }
 
 
@@ -36,22 +38,6 @@ export class SubService {
         }
     }
 
-    //trata o texto para retirar markdown, links, tags e outros
-     static transformText(text) {
-        const regex = /\[([^\]]*)\]\((https?:\/\/[^$#\s].[^\s]*)\)/gm;
-        text = text.replace(regex, ' ');
-        text = removeMarkdown(text);
-        const regexN = /\n/gms;
-        text = text.replace(regexN, '.');
-        return text;
-
-    }
-
-     static transformTitle(title) {
-        const regex = /Polkadot digest/gmsi;
-       title = (title ? title.replace(regex, "Polkadot") : `Polkadot  ${new Date().toLocaleDateString()}`);
-        return title;
-    }
 
 //transforma os posts do subsocial em uma lista de Feeds(objetos interpretados pela alexa)
      private processPosts =  (posts: PostData[]) => {
@@ -62,9 +48,9 @@ export class SubService {
             const feed: Feed = {
                 uid: post.struct.id.toString(),
                 updateDate: new Date(Date.now()),
-                titleText: SubService.transformTitle(post.content.title),
+                titleText: this.wordProcessor.transformTitle(post.content.title),
                 //mainText: post.content.body,
-                mainText: SubService.transformText(post.content.body),
+                mainText: this.wordProcessor.transformText(post.content.body),
                 redirectUrl: post.content.link,
             }
             feeds.push(feed);
@@ -81,6 +67,7 @@ export class SubService {
 
      async getLastFeed(spaceId): Promise<Feed> {
          const allFeeds = await this.getAllFeeds(spaceId);
+         console.log(allFeeds[allFeeds.length - 1].mainText);
         return allFeeds[allFeeds.length - 1];
 
  }
