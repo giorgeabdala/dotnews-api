@@ -1,5 +1,5 @@
-import {Feed} from "./feed.model";
-import {SubService} from "./sub.service";
+import {Feed} from "./feedModel";
+import {SubService} from "./subService";
 import {Controller, Get} from "@nestjs/common";
 import config from "./config/Config";
 

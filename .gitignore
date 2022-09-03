@@ -34,3 +34,4 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 sub.run/sub.sdk.test.ts.run.xml
+/src/subsdktest.ts
